@@ -1,5 +1,6 @@
 ﻿using CheeseMVC.Data;
 using CheeseMVC.Models;
+using CheeseMVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,37 @@ namespace CheeseMVC.Controllers
 
             return View(categories);
         }
+
+        public IActionResult Add()
+        {
+            AddCategoryViewModel addCategoryViewModel = new AddCategoryViewModel();
+            return View(addCategoryViewModel);
+
+        }
+
+        [HttpPost]
+        public IActionResult Add(AddCategoryViewModel addCategoryViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                //Add new category to existing categories
+                CheeseCategory newCategory = new CheeseCategory
+                {
+                    Name = addCategoryViewModel.Name
+
+                };
+
+                context.Categories.Add(newCategory);
+                context.SaveChanges();
+
+                return Redirect("/Category");
+
+            }
+
+            return View(addCategoryViewModel);
+
+        }
+
     }
 
     
