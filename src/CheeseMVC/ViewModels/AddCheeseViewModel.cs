@@ -29,11 +29,15 @@ namespace CheeseMVC.ViewModels
 
             //TODO: fix this
 
-            foreach (SelectListItem category in Enum.GetValues(typeof(SelectListItem)))
-            Categories.Add(new SelectListItem {
-                Value = ((int)CategoryID).ToString(),
-                Text = category.ToString()
-            });
+            foreach (var category in categories)
+            {
+                Categories.Add(new SelectListItem
+                {
+                    //Value = category.ID.ToString(),
+                    Value = CategoryID.ToString(),
+                    Text = category.Name
+                });
+            }
 
             
         }
