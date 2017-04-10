@@ -76,6 +76,22 @@ namespace CheeseMVC.Controllers
             return Redirect("/");
         }
 
+        public IActionResult Category(int id)
+        {
+            if (id == 0)
+            {
+                return Redirect("/Category");
+            }
+
+            CheeseCategory theCategory = context.Categories
+                .Include(cat => cat.Cheeses)
+                .Single(cat => cat.ID == id);
+
+            ViewBag.title = "Cheeses in category: " + theCategory.Name;
+
+            return View("Index", theCategory.Cheeses);
+        }
+
 
     }
 }
